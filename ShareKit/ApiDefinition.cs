@@ -220,12 +220,16 @@ namespace ShareKit
         [Export ("pendingView")]
         UIViewController PendingView { get; set;  }
         
+        [Export ("currentView")]
+        UIViewController CurrentView { get; set;  }
+
         [Export ("isDismissingView")]
         bool IsDismissingView { get; set;  }
         
         [Export ("offlineQueue")]
         NSOperationQueue OfflineQueue { get; set;  }
-        
+
+        [Static]
         [Export ("currentHelper")]
         SHK CurrentHelper ();
         
@@ -475,19 +479,19 @@ namespace ShareKit
     interface SHKSharerDelegate {
         [Abstract]
         [Export ("sharerStartedSending:")]
-        void StartedSending (SHKSharer sharer);
+        void SendingStarted (SHKSharer sharer);
         
         [Abstract]
         [Export ("sharerFinishedSending:")]
-        void FinishedSending (SHKSharer sharer);
+        void SendingFinished (SHKSharer sharer);
         
         [Abstract]
-        [Export ("sharer:failedWithError:shouldRelogin:")]
-        void FailedWithError (SHKSharer sharer, NSError error, bool shouldRelogin);
+        [Export ("sharer:failedWithError:shouldRelogin:"), EventArgs ("Error")]
+        void Failed (SHKSharer sharer, NSError error, bool shouldRelogin);
         
         [Abstract]
         [Export ("sharerCancelledSending:")]
-        void CancelledSending (SHKSharer sharer);
+        void SendingCancelled (SHKSharer sharer);
         
         [Abstract]
         [Export ("sharerShowBadCredentialsAlert:")]
@@ -498,12 +502,15 @@ namespace ShareKit
         void ShowOtherAuthorizationErrorAlert (SHKSharer sharer);
         
         [Abstract]
-        [Export ("sharerAuthDidFinish:success:")]
-        void AuthDidFinish (SHKSharer sharer, bool success);
+        [Export ("sharerAuthDidFinish:success:"), EventArgs ("AuthSuccess")]
+        void AuthFinished (SHKSharer sharer, bool success);
         
     }
     
-    [BaseType (typeof (UINavigationController))]
+    [BaseType (typeof (UINavigationController),
+                Delegates = new string [] {"WeakShareDelegate"},
+                Events = new Type [] { typeof (SHKSharerDelegate) }
+    )]
     interface SHKSharer {
         [Export ("item")]
         SHKItem Item { get; set;  }
