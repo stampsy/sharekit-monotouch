@@ -988,7 +988,6 @@ namespace ShareKit
         void SendForm (SHKFormControllerLargeTextField form);
         
         [Abstract]
-        [Static]
         [Export ("sharerTitle")]
         string SharerTitle ();
         
