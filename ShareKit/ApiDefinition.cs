@@ -537,10 +537,10 @@ namespace ShareKit
         NSObject WeakShareDelegate { get; set;  }
 
         [Export ("sharerTitle")]
-        string SharerTitle ();
+        string SharerTitle { get; }
         
         [Export ("sharerId")]
-        string SharerId ();
+        string SharerId  { get; }
         
         [Static]
         [Export ("canShareText")]
@@ -989,7 +989,7 @@ namespace ShareKit
         
         [Abstract]
         [Export ("sharerTitle")]
-        string SharerTitle ();
+        string SharerTitle { get; }
         
         [Abstract]
         [Export ("sendDidCancel")]
