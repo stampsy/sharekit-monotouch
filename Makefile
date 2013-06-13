@@ -27,7 +27,7 @@ nofb-a: lib$(TARGETNAME)-NoFB.a
 %.dll: lib%.a
 	@echo "Building MT project"
 
-	$(BTOUCH) -e $(MTPROJDIR)/ApiDefinition.cs $(MTPROJDIR)/StructsAndEnums.cs -x=$(MTPROJDIR)/lib$(TARGETNAME).linkwith.cs -x=$(MTPROJDIR)/Extra.cs --out=$(BUILDDIR)/$@ --link-with=$<,$<
+	$(BTOUCH) -e $(MTPROJDIR)/ApiDefinition.cs $(MTPROJDIR)/StructsAndEnums.cs -x=$(MTPROJDIR)/lib$(TARGETNAME).linkwith.cs -x=$(MTPROJDIR)/Extra.cs --out=$(BUILDDIR)/$@ --link-with=$<,lib$(TARGETNAME).a
 	-rm -f $<
 
 lib%.i386.a:
