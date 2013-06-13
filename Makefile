@@ -8,13 +8,15 @@ PROJDIR=src/Native/$(PROJNAME)
 MTPROJDIR=src/$(PROJNAME)
 PROJ=$(PROJDIR)/$(PROJNAME).xcodeproj
 
-.PHONY: clean nofb a nofb-a force-clean
+.PHONY: clean nofb full a nofb-a force-clean
 
-all: clean $(TARGETNAME).dll
+all: nofb
+
+full: $(TARGETNAME).dll
 
 nofb: $(TARGETNAME)-NoFB.dll
 
-a: lib$(TARGETNAME).a
+full-a: lib$(TARGETNAME).a
 	cp $< $(MTPROJDIR)/lib$(TARGETNAME).a
 	-rm -f $<
 
