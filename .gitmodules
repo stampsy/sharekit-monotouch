@@ -1,0 +1,3 @@
+[submodule "src/Native/ShareKit"]
+	path = src/Native/ShareKit
+	url = https://github.com/stampsy/ShareKit.git
